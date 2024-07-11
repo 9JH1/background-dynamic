@@ -25,31 +25,67 @@
           width: 100vw;
           height: 100vh;
           position: fixed;
-          z-index: 100000000000000;
           top: 0;
-          backdrop-filter: blur(200px);
+          backdrop-filter: blur(100px);
           font-family: Arial, Helvetica, sans-serif;
-          z-index: 10000;
+          color: white;
+        }
+        .controls {
+          top: 0;
+          left: 0;
+          position: fixed;
+          mix-blend-mode: difference;
+          color: white;
+          opacity: 0;
+          font-size: 2em;
+          font-family: Arial, Helvetica, sans-serif;
+          font-weight: bold;
+        }
+        .controls:hover {
+          opacity: 1;
         }
       }
     </style>
   </head>
   <body>
     <div id="effect"></div>
-    <div class="cover">
-      <input type="color" name="" id="color" value="#ff00ff" />
-      <span id="count"></span>
+    <div class="cover"></div>
+    <div class="controls">
+      Color
+      <input type="color" name="" id="color" value="#00ffff" />
+      <br />
+      interval:
+      <input type="number" name="" id="number" value="1000" />
+      <br />
+      Limit:
+      <input type="number" name="" id="limit" value="100" />
+      <div id="count"></div>
     </div>
     <script>
       const a = document.getElementById("effect");
       const d = document.getElementById("color");
       const g = document.getElementById("count");
-      var i = new Date();
+      const k = document.getElementById("number");
+      const n = document.getElementById("limit");
+      var i = new Date(),
+        l;
       let e = 0,
-        f = 0;
-      setInterval(() => {
+        f = 0,
+        m = 0;
+      function runEffect() {
         var h = new Date();
         var j = 1000 / (h - i);
+        f = 0;
+        document.querySelectorAll(".dot").forEach(() => {
+          f++;
+        });
+        g.innerHTML = `<br>${f} Current Objects <br>${e} Total Spawned <br>${Math.round(
+          j
+        )} Dots Per Second`;
+        if (f > n.value - 1) {
+          return "TOO MUCH";
+        }
+        e++;
         i = h;
         const b = document.createElement("div");
         b.classList.add("dot");
@@ -72,28 +108,40 @@
 
         // Apply the calculated RGB values to the background style
         b.style.background = `rgb(${averageR}, ${averageG}, ${averageB})`;
-        const c = Math.round(Math.random() * (window.innerWidth * 2));
-        b.style.transition = `all ${c / 50}s`;
+        const c =
+          Math.round(
+            Math.random() * (window.innerHeight / 2) + window.innerHeight / 3
+          ) +
+          window.innerHeight / 3;
+        b.style.transition = `all ${(c / 50) * 1000}ms linear`;
         b.style.width = c + "px";
         b.style.height = c + "px";
+        b.style.borderRadius = c + "px";
         b.style.marginTop = Math.random() * window.innerHeight - c / 2 + "px";
-        b.style.transform = `translateX(-${c * 2}px)`;
+        b.style.transform = `translateX(-${c}px)`;
         a.append(b);
-        e++;
-        f = 0;
-        document.querySelectorAll(".dot").forEach(() => {
-          f++;
-        });
-        g.innerText = `${f} Current Objects / ${e} Total Spawned / ${Math.round(
-          j
-        )} Dots Per Second`;
         setTimeout(() => {
-          b.style.marginLeft = window.innerWidth + c * 2 + "px";
+          b.style.marginLeft = window.innerWidth + c + "px";
           setInterval(() => {
             b.remove();
-          }, (c / 5) * 100 + c / 2);
+          }, (c / 50) * 1000);
         }, 100);
-      }, Math.round(Math.random() * 500));
+      }
+
+      setInterval(() => {
+        if (m != k.value) {
+          console.log("WORKING");
+          m = k.value;
+          try {
+            clearInterval(l);
+            console.log("WORKINGG");
+          } catch {
+            console.log("NOT WORKING");
+          }
+          l = setInterval(runEffect, Math.round(Math.random() * m));
+        } else {
+        }
+      });
     </script>
   </body>
 </html>
