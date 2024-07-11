@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="title"></title>
     <style>
-*{overflow:hidden;}
       body {
         width: 100vw;
         height: 100vh;
@@ -212,7 +211,7 @@
         b.style.width = c + "px";
         b.style.height = c + "px";
         b.style.borderRadius = c + "px";
-        b.style.marginTop = Math.random() * window.innerWidth - c / 2 + "px";
+        b.style.marginTop = Math.random() * window.innerHeight - c / (Math.random()*2)+1+ "px";
         b.style.transform = `translateX(-${c}px)`;
         a.append(b);
         setTimeout(() => {
