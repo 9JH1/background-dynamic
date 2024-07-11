@@ -80,6 +80,11 @@
       const p = document.getElementById("filter");
       const q = document.getElementById("color-t");
       const r = document.getElementById("variance");
+      var el = document.documentElement,
+        rfs = el.requestFullscreen;
+      if (typeof rfs != "undefined" && rfs) {
+        rfs.call(el);
+      }
       var i = new Date(),
         l;
       let e = 0,
@@ -106,7 +111,6 @@
         const randomR = Math.round(Math.random() * variance);
         const randomG = Math.round(Math.random() * variance);
         const randomB = Math.round(Math.random() * variance);
-
         // Calculate the average of each channel to get a similar color
         const averageR = Math.round((dr + randomR) / 2); // Adjusting red to be brighter
         const averageG = Math.round((dg + randomG) / 2); // Average of extracted green and random green
