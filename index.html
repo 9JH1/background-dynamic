@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HOVER TOP LEFT</title>
+    <title id="title"></title>
     <style>
       body {
         width: 100vw;
@@ -127,6 +127,7 @@
       const q = document.getElementById("color-t");
       const r = document.getElementById("variance");
       const s = document.getElementById("speed");
+      const u = document.getElementById("title");
       let t;
       function toggleFullScreen() {
         var doc = window.document;
@@ -187,7 +188,7 @@
         g.innerHTML = `<br>${f} Current Objects <br>${e} Total Spawned <br>${Math.round(
           j
         )} Dots Per Second <br> Current Color rgb(${averageR}, ${averageG}, ${averageB})`;
-        document.head.title.innerText = `HOVER TOP LEFT - ${f}`;
+        console.log(u);
         if (f > n.value - 1) {
           return "TOO MUCH";
         }
@@ -203,6 +204,7 @@
             Math.random() * (window.innerHeight / 2) + window.innerHeight / 3
           ) +
           window.innerHeight / 3;
+        u.innerHTML = "HOVER TOP LEFT - " + f;
         if (s.value == 0) {
           t = (c / 50) * 1000;
         } else {
