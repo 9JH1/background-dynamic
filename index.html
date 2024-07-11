@@ -69,6 +69,7 @@
       <button onclick="document.getElementById('effect').innerHTML=''">
         Remove all objects
       </button>
+      <button onclick="toggleFullScreen()">Fullscreen</button>
     </div>
     <script>
       const a = document.getElementById("effect");
@@ -80,10 +81,31 @@
       const p = document.getElementById("filter");
       const q = document.getElementById("color-t");
       const r = document.getElementById("variance");
-      var el = document.documentElement,
-        rfs = el.requestFullscreen;
-      if (typeof rfs != "undefined" && rfs) {
-        rfs.call(el);
+      function toggleFullScreen() {
+        var doc = window.document;
+        var docEl = doc.documentElement;
+
+        var requestFullScreen =
+          docEl.requestFullscreen ||
+          docEl.mozRequestFullScreen ||
+          docEl.webkitRequestFullScreen ||
+          docEl.msRequestFullscreen;
+        var cancelFullScreen =
+          doc.exitFullscreen ||
+          doc.mozCancelFullScreen ||
+          doc.webkitExitFullscreen ||
+          doc.msExitFullscreen;
+
+        if (
+          !doc.fullscreenElement &&
+          !doc.mozFullScreenElement &&
+          !doc.webkitFullscreenElement &&
+          !doc.msFullscreenElement
+        ) {
+          requestFullScreen.call(docEl);
+        } else {
+          cancelFullScreen.call(doc);
+        }
       }
       var i = new Date(),
         l;
