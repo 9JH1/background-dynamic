@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        overflow: hidden;
+        #effect {
+          width: 100vw;
+          height: 100vh;
+          .dot {
+            height: 100px;
+            position: fixed;
+            border-radius: 500px;
+          }
+        }
+        .cover {
+          width: 100vw;
+          height: 100vh;
+          position: fixed;
+          z-index: 100000000000000;
+          top: 0;
+          backdrop-filter: blur(100px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="effect"></div>
+    <div class="cover">
+      <input type="color" name="" id="color" value="#ff00ff" />
+    </div>
+    <script>
+      const a = document.getElementById("effect");
+      const d = document.getElementById("color");
+      setInterval(() => {
+        const b = document.createElement("div");
+        b.classList.add("dot");
+
+        const dc = d.value;
+        const dr = parseInt(dc.substr(1, 2), 16);
+        const dg = parseInt(dc.substr(3, 2), 16);
+        const db = parseInt(dc.substr(5, 2), 16);
+
+        // Generate random values for green and blue channels
+
+        const randomR = Math.round(Math.random() * 255);
+        const randomG = Math.round(Math.random() * 255);
+        const randomB = Math.round(Math.random() * 255);
+
+        // Calculate the average of each channel to get a similar color
+        const averageR = Math.round((dr + randomR) / 2); // Adjusting red to be brighter
+        const averageG = Math.round((dg + randomG) / 2); // Average of extracted green and random green
+        const averageB = Math.round((db + randomB) / 2); // Average of extracted blue and random blue
+
+        // Apply the calculated RGB values to the background style
+        b.style.background = `rgb(${averageR}, ${averageG}, ${averageB})`;
+        const c = Math.round(Math.random() * 2000);
+        b.style.transition = `all ${c / 50}s`;
+
+        b.style.width = c + "px";
+
+        b.style.height = c + "px";
+        b.style.marginTop = Math.random() * 1080 - c / 2 + "px";
+        b.style.transform = `translateX(-${c + c / 2}px)`;
+        a.append(b);
+        setTimeout(() => {
+          b.style.marginLeft = 1920 + c * 2 + "px";
+          setInterval(() => {
+            b.remove();
+            console.log("working");
+          }, (c / 5) * 100);
+        }, 100);
+      }, Math.round(Math.random() * 100));
+    </script>
+  </body>
+</html>
