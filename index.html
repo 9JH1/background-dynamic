@@ -73,7 +73,7 @@
         b.style.transform = `translateX(-${c * 2}px)`;
         a.append(b);
         setTimeout(() => {
-          b.style.marginLeft = 1920 + c * 2 + "px";
+          b.style.marginLeft = window.innerWidth + c * 2 + "px";
           setInterval(() => {
             b.remove();
             console.log("working");
