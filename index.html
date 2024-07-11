@@ -113,9 +113,9 @@
       >
         add text
       </button>
-      <input type="text" name="" id="text-text" value="Asthmatic" />
+      <input type="text" name="" id="text-text" value="Aesthetic" />
     </div>
-    <div class="text"><div id="text-ele">Asthmatic</div></div>
+    <div class="text"><div id="text-ele">Aesthetic</div></div>
     <script>
       const a = document.getElementById("effect");
       const d = document.getElementById("color");
@@ -200,9 +200,9 @@
         b.style.background = `rgb(${averageR}, ${averageG}, ${averageB})`;
         const c =
           Math.round(
-            Math.random() * (window.innerHeight / 2) + window.innerHeight / 3
+            Math.random() * (window.innerWidth/ 2) + window.innerWidth / 3
           ) +
-          window.innerHeight / 3;
+          window.innerWidth/ 3;
         u.innerHTML = "HOVER TOP LEFT - " + f;
         if (s.value == 0) {
           t = (c / 50) * 1000;
@@ -213,7 +213,7 @@
         b.style.width = c + "px";
         b.style.height = c + "px";
         b.style.borderRadius = c + "px";
-        b.style.marginTop = Math.random() * window.innerHeight - c / 2 + "px";
+        b.style.marginTop = Math.random() * window.innerWidth - c / 2 + "px";
         b.style.transform = `translateX(-${c}px)`;
         a.append(b);
         setTimeout(() => {
