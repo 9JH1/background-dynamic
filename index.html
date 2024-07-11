@@ -44,9 +44,13 @@
       const a = document.getElementById("effect");
       const d = document.getElementById("color");
       const g = document.getElementById("count");
+      var i = new Date();
       let e = 0,
         f = 0;
       setInterval(() => {
+        var h = new Date();
+        var j = 1000 / (h - i);
+        i = h;
         const b = document.createElement("div");
         b.classList.add("dot");
 
@@ -80,14 +84,16 @@
         document.querySelectorAll(".dot").forEach(() => {
           f++;
         });
-        g.innerText = `${f} Current Objects / ${e} Total Spawned`;
+        g.innerText = `${f} Current Objects / ${e} Total Spawned / ${Math.round(
+          j
+        )} Dots Per Second`;
         setTimeout(() => {
           b.style.marginLeft = window.innerWidth + c * 2 + "px";
           setInterval(() => {
             b.remove();
           }, (c / 5) * 100 + c / 2);
         }, 100);
-      }, Math.round(Math.random() * 1000));
+      }, Math.round(Math.random() * 500));
     </script>
   </body>
 </html>
