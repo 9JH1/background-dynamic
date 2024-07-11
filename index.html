@@ -48,19 +48,23 @@
   </head>
   <body>
     <div id="effect"></div>
-    <div class="cover" id="filter"></div>
+    <div class="cover" id="filter" style="backdrop-filter: blur(100px)"></div>
     <div class="controls">
-      Color
-      <input type="color" name="" id="color" value="#00ffff" />
+      Color <span id="color-t"></span>
+      <input type="color" name="" id="color" value="#ff00ff" />
+
       <br />
       interval:
-      <input type="number" name="" id="number" value="1000" />
+      <input type="number" name="" id="number" value="1100" />
       <br />
       Blur Amount:
       <input type="number" name="" id="blur" value="100" />
       <br />
       Limit:
-      <input type="number" name="" id="limit" value="100" />
+      <input type="number" name="" id="limit" value="50" />
+      <br />
+      Variance (0-100):
+      <input type="number" name="" id="" min="0" max="100" />
       <div id="count"></div>
       <button onclick="document.getElementById('effect').innerHTML=''">
         Remove all objects
@@ -74,6 +78,7 @@
       const n = document.getElementById("limit");
       const o = document.getElementById("blur");
       const p = document.getElementById("filter");
+      const q = document.getElementById("color-t");
       var i = new Date(),
         l;
       let e = 0,
@@ -89,18 +94,8 @@
         document.querySelectorAll(".dot").forEach(() => {
           f++;
         });
-        g.innerHTML = `<br>${f} Current Objects <br>${e} Total Spawned <br>${Math.round(
-          j
-        )} Dots Per Second`;
-        if (f > n.value - 1) {
-          return "TOO MUCH";
-        }
-        e++;
-        i = h;
-        const b = document.createElement("div");
-        b.classList.add("dot");
-
         const dc = d.value;
+        q.innerText = dc;
         const dr = parseInt(dc.substr(1, 2), 16);
         const dg = parseInt(dc.substr(3, 2), 16);
         const db = parseInt(dc.substr(5, 2), 16);
@@ -115,6 +110,17 @@
         const averageR = Math.round((dr + randomR) / 2); // Adjusting red to be brighter
         const averageG = Math.round((dg + randomG) / 2); // Average of extracted green and random green
         const averageB = Math.round((db + randomB) / 2); // Average of extracted blue and random blue
+        g.innerHTML = `<br>${f} Current Objects <br>${e} Total Spawned <br>${Math.round(
+          j
+        )} Dots Per Second <br> Current Color rgb(${averageR}, ${averageG}, ${averageB})`;
+
+        if (f > n.value - 1) {
+          return "TOO MUCH";
+        }
+        e++;
+        i = h;
+        const b = document.createElement("div");
+        b.classList.add("dot");
 
         // Apply the calculated RGB values to the background style
         b.style.background = `rgb(${averageR}, ${averageG}, ${averageB})`;
