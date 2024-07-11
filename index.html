@@ -63,6 +63,9 @@
       Limit:
       <input type="number" name="" id="limit" value="50" />
       <br />
+      Speed
+      <input type="number" id="speed" value="0" />
+      <br />
       Variance (0-100):
       <input type="number" name="" min="0" max="100" value="75" id="variance" />
       <div id="count"></div>
@@ -81,6 +84,8 @@
       const p = document.getElementById("filter");
       const q = document.getElementById("color-t");
       const r = document.getElementById("variance");
+      const s = document.getElementById("speed");
+      let t;
       function toggleFullScreen() {
         var doc = window.document;
         var docEl = doc.documentElement;
@@ -156,7 +161,12 @@
             Math.random() * (window.innerHeight / 2) + window.innerHeight / 3
           ) +
           window.innerHeight / 3;
-        b.style.transition = `all ${(c / 50) * 1000}ms linear`;
+        if (s.value == 0) {
+          t = (c / 50) * 1000;
+        } else {
+          t = s.value;
+        }
+        b.style.transition = `all ${t}ms linear`;
         b.style.width = c + "px";
         b.style.height = c + "px";
         b.style.borderRadius = c + "px";
@@ -167,7 +177,7 @@
           b.style.marginLeft = window.innerWidth + c + "px";
           setInterval(() => {
             b.remove();
-          }, (c / 50) * 1000);
+          }, t);
         }, 100);
       }
 
