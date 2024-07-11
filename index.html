@@ -34,8 +34,8 @@
           left: 0;
           position: fixed;
           mix-blend-mode: difference;
-          color: white;
           opacity: 0;
+          color: white;
           font-size: 2em;
           font-family: Arial, Helvetica, sans-serif;
           font-weight: bold;
@@ -58,13 +58,13 @@
       <input type="number" name="" id="number" value="1100" />
       <br />
       Blur Amount:
-      <input type="number" name="" id="blur" value="100" />
+      <input type="number" name="" id="blur" value="50" />
       <br />
       Limit:
       <input type="number" name="" id="limit" value="50" />
       <br />
       Variance (0-100):
-      <input type="number" name="" id="" min="0" max="100" />
+      <input type="number" name="" min="0" max="100" value="75" id="variance" />
       <div id="count"></div>
       <button onclick="document.getElementById('effect').innerHTML=''">
         Remove all objects
@@ -79,6 +79,7 @@
       const o = document.getElementById("blur");
       const p = document.getElementById("filter");
       const q = document.getElementById("color-t");
+      const r = document.getElementById("variance");
       var i = new Date(),
         l;
       let e = 0,
@@ -101,10 +102,10 @@
         const db = parseInt(dc.substr(5, 2), 16);
 
         // Generate random values for green and blue channels
-
-        const randomR = Math.round(Math.random() * 255);
-        const randomG = Math.round(Math.random() * 255);
-        const randomB = Math.round(Math.random() * 255);
+        const variance = (255 * r.value) / 100;
+        const randomR = Math.round(Math.random() * variance);
+        const randomG = Math.round(Math.random() * variance);
+        const randomB = Math.round(Math.random() * variance);
 
         // Calculate the average of each channel to get a similar color
         const averageR = Math.round((dr + randomR) / 2); // Adjusting red to be brighter
