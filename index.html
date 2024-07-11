@@ -17,17 +17,25 @@
           height: 100vh;
           .dot {
             height: 100px;
-            position: fixed;
+            position: absolute;
             border-radius: 500px;
+            z-index: 0;
           }
         }
         .cover {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
           width: 100vw;
           height: 100vh;
+          background-color: rgba(255, 0, 0, 0);
           position: fixed;
-          top: 0;
+          backdrop-filter: blur(200px);
+          -webkit-backdrop-filter: blur(200px);
           font-family: Arial, Helvetica, sans-serif;
           color: white;
+          z-index: 1;
         }
         .controls {
           top: 0;
@@ -39,9 +47,32 @@
           font-size: 2em;
           font-family: Arial, Helvetica, sans-serif;
           font-weight: bold;
+
+          z-index: 2;
         }
         .controls:hover {
           opacity: 1;
+        }
+        .text {
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 3;
+          width: 100vw;
+          height: 100vh;
+          background: transparent;
+          user-select: none;
+          pointer-events: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: Georgia, "Times New Roman", Times, serif;
+          font-size: 2.5em;
+          font-style: italic;
+
+          color: white;
+          mix-blend-mode: difference;
+          font-weight: 600;
         }
       }
     </style>
@@ -64,7 +95,7 @@
       <input type="number" name="" id="limit" value="50" />
       <br />
       Speed
-      <input type="number" id="speed" value="0" />
+      <input type="number" id="speed" value="8000" />
       <br />
       Variance (0-100):
       <input type="number" name="" min="0" max="100" value="75" id="variance" />
@@ -72,8 +103,19 @@
       <button onclick="document.getElementById('effect').innerHTML=''">
         Remove all objects
       </button>
-      <button onclick="toggleFullScreen()">Fullscreen</button>
+      <button onclick="toggleFullScreen()">Fullscreen</button><br />
+      <button onclick="document.getElementById('text-ele').innerHTML = ''">
+        remove text
+      </button>
+
+      <button
+        onclick="document.getElementById('text-ele').innerHTML = document.getElementById('text-text').value"
+      >
+        add text
+      </button>
+      <input type="text" name="" id="text-text" value="Atheistic" />
     </div>
+    <div class="text"><div id="text-ele">Atheistic</div></div>
     <script>
       const a = document.getElementById("effect");
       const d = document.getElementById("color");
