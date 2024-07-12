@@ -12,6 +12,7 @@
         padding: 0;
         background-color: black;
         overflow: hidden;
+        transition: background 10s ease;
         #effect {
           width: 100vw;
           height: 100vh;
@@ -22,7 +23,7 @@
             z-index: 0;
           }
         }
-        
+
         .controls {
           top: 0;
           left: 0;
@@ -61,31 +62,32 @@
           font-weight: 600;
         }
       }
-.cover {
-          top: 0;
-          right:0;
-          width: 100vw;
-          height: 100vh;
-          background-color: rgba(255, 0, 0, 0);
-          position: fixed;
-          -webkit-backdrop-filter:blur(50px);
-          backdrop-filter: blur(50px);
-          font-family: Arial, Helvetica, sans-serif;
-          color: white;
-          z-index: 1;
-      
-        }
+      .cover {
+        top: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 0, 0, 0);
+        position: fixed;
+        backdrop-filter: blur(50px);
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        z-index: 1;
+      }
     </style>
   </head>
   <body>
     <div id="effect"></div>
-    <div class="cover" id="filter" style="backdrop-filter: blur(50px)">
-<div class="inner"></div>
-</div>
+    <div class="cover" id="filter">
+      <div class="inner"></div>
+    </div>
     <div class="controls">
-      Color <span id="color-t"></span>
-      <input type="color" name="" id="color" value="#ff00ff" />
+      Color 1: <span id="color-t-1"></span>
+      <input type="color" name="" id="color-1" value="#ff00ff" />
+      <br />
+      Color 2: <span id="color-t-2"></span>
 
+      <input type="color" name="" id="color-2" value="#00ff00" />
       <br />
       interval:
       <input type="number" name="" id="number" value="1100" />
@@ -120,16 +122,18 @@
     <div class="text"><div id="text-ele">Aesthetic</div></div>
     <script>
       const a = document.getElementById("effect");
-      const d = document.getElementById("color");
+      const d = document.getElementById("color-1");
       const g = document.getElementById("count");
       const k = document.getElementById("number");
       const n = document.getElementById("limit");
       const o = document.getElementById("blur");
       const p = document.getElementById("filter");
-      const q = document.getElementById("color-t");
+      const q = document.getElementById("color-t-1");
       const r = document.getElementById("variance");
       const s = document.getElementById("speed");
       const u = document.getElementById("title");
+      const v = document.getElementById("color-2");
+      const w = document.getElementById("color-t-2");
       let t;
       function toggleFullScreen() {
         var doc = window.document;
@@ -172,8 +176,14 @@
         document.querySelectorAll(".dot").forEach(() => {
           f++;
         });
-        const dc = d.value;
-        q.innerText = dc;
+        let dc;
+        if (Math.round(Math.random())) {
+          dc = d.value;
+        } else {
+          dc = v.value;
+        }
+        q.innerText = d.value;
+        w.innerText = v.value;
         const dr = parseInt(dc.substr(1, 2), 16);
         const dg = parseInt(dc.substr(3, 2), 16);
         const db = parseInt(dc.substr(5, 2), 16);
@@ -190,6 +200,7 @@
         g.innerHTML = `<br>${f} Current Objects <br>${e} Total Spawned <br>${Math.round(
           j
         )} Dots Per Second <br> Current Color rgb(${averageR}, ${averageG}, ${averageB})`;
+        document.body.style.background = `rgb(${averageR}, ${averageG}, ${averageB})`;
         if (f > n.value - 1) {
           return "TOO MUCH";
         }
@@ -202,9 +213,9 @@
         b.style.background = `rgb(${averageR}, ${averageG}, ${averageB})`;
         const c =
           Math.round(
-            Math.random() * (window.innerWidth/ 2) + window.innerWidth / 3
+            Math.random() * (window.innerWidth / 2) + window.innerWidth / 3
           ) +
-          window.innerWidth/ 3;
+          window.innerWidth / 3;
         u.innerHTML = "HOVER TOP LEFT - " + f;
         if (s.value == 0) {
           t = (c / 50) * 1000;
@@ -215,7 +226,11 @@
         b.style.width = c + "px";
         b.style.height = c + "px";
         b.style.borderRadius = c + "px";
-        b.style.marginTop = Math.random() * window.innerHeight - c + "px";
+        const getRandomNumber = (min, max) => {
+          return Math.random() * (max - min) + min;
+        };
+        b.style.marginTop =
+          getRandomNumber(0 - c / 2, window.innerHeight + c / 2) + "px";
         b.style.transform = `translateX(-${c}px)`;
         a.append(b);
         setTimeout(() => {
